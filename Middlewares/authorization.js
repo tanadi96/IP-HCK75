@@ -1,19 +1,17 @@
-const { User, Type, Lodging } = require("../models");
+const { User, Type, Plant } = require("../models");
 async function authorization(req, res, next) {
   try {
     if (req.user.role === "Admin") {
       next();
     } else {
-      const user = req.user.id;
-      const lodging = req.params.id;
+     
+      const plant = req.params.id;
 
-      const data = await Lodging.findByPk(lodging);
+      const data = await Plant.findByPk(plant);
       if (!data) {
         throw { name: "NotFound" };
       }
-      if (user !== data.UserId) {
-        throw { name: "Forbidden" };
-      }
+    
       next();
     }
   } catch (error) {

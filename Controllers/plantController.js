@@ -1,15 +1,11 @@
 const { Op } = require("sequelize");
 const { User, Type, Plant } = require("../models");
-const { comparePassword } = require("../helper/bcrypt");
+const { comparePassword } = require("../Helpers/bycripts");
 const { errorHandler } = require("../Middlewares/errorhandler");
-const lodging = require("../routers/lodging");
-const { v2: cloudinary } = require("cloudinary");
+const lodging = require("../Routers/plant");
 
-cloudinary.config({
-  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-  api_key: process.env.CLOUDINARY_API_KEY,
-  api_secret: process.env.CLOUDINARY_API_SECRET,
-});
+
+
 
 class plantController {
   static async getallPlant(req, res, next) {
@@ -54,6 +50,7 @@ class plantController {
           checkFilter.offset = limit * (offset - 1)
         }
       }
+console.log(checkFilter);
 
       let data = await Plant.findAll(checkFilter);
       res.status(200).json(data);
@@ -99,35 +96,35 @@ class plantController {
     }
   }
 
-  static async pathPlant(req, res, next) {
-    try {
-      const { id } = req.params;
-      const imageUrl = req.file;
+  // static async pathPlant(req, res, next) {
+  //   try {
+  //     const { id } = req.params;
+  //     const imageUrl = req.file;
 
-      if (!imageUrl) {
-        return res.status(400).json({ message: "No file uploaded." });
-      }
-      const { mimetype, buffer } = imageUrl;
-      const img = `data:${mimetype};base64,${buffer.toString("base64")}`;
+  //     if (!imageUrl) {
+  //       return res.status(400).json({ message: "No file uploaded." });
+  //     }
+  //     const { mimetype, buffer } = imageUrl;
+  //     const img = `data:${mimetype};base64,${buffer.toString("base64")}`;
 
-      const data = await cloudinary.uploader.upload(img);
-      console.log(data.secure_url);
-      await Plant.update(
-        { imgUrl: data.secure_url },
-        {
-          where: { id },
-        }
-      );
-      // console.log(process.env.CLOUDINARY_API_KEY, process.env.CLOUDINARY_API_SECRET);
-      res.status(200).json({
-        message: `Image Plant succes to update`,
-        imageUrl: data.secure_url,
-      });
-    } catch (error) {
-      console.error(error);
-      next(error);
-    }
-  }
+  //     const data = await cloudinary.uploader.upload(img);
+  //     console.log(data.secure_url);
+  //     await Plant.update(
+  //       { imgUrl: data.secure_url },
+  //       {
+  //         where: { id },
+  //       }
+  //     );
+  //     // console.log(process.env.CLOUDINARY_API_KEY, process.env.CLOUDINARY_API_SECRET);
+  //     res.status(200).json({
+  //       message: `Image Plant succes to update`,
+  //       imageUrl: data.secure_url,
+  //     });
+  //   } catch (error) {
+  //     console.error(error);
+  //     next(error);
+  //   }
+  // }
 
   static async deletePlant(req, res, next) {
     try {

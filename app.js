@@ -10,7 +10,5 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 app.use("/", router);
+module.exports = app
 
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
-});

@@ -16,7 +16,7 @@ function errorHandler(error, req, res, next) {
       status = 400;
       message = error.name;
       break;
-    case "Invalid email/password":
+    case "invalid email/password":
       status = 401;
       message = error.name;
       break;

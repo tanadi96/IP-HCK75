@@ -1,7 +1,8 @@
 const Controller = require("../Controllers/Controllers");
-const authentication = require("../middlewares/authentication");
+const authentication = require("../Middlewares/authentication");
+const errorHandler = require("../Middlewares/errorhandler");
 
-const request = require("express").Router();
+const router = require("express").Router();
 
 Controller
 
@@ -11,5 +12,5 @@ router.post("/login",Controller.login);
 router.use(authentication)
 router.use('/plants', require('./plant'))
 router.use('/types', require('./type'))
-
+router.use(errorHandler)
 module.exports = router

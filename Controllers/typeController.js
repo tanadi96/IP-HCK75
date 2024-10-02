@@ -1,7 +1,7 @@
 const { where } = require("sequelize");
 
 const { User, Type, Lodging } = require("../models");
-const { comparePassword } = require("../helper/bcrypt");
+const { comparePassword } = require("../Helpers/bycripts");
 
 class typeController {
   static async getType(req, res, next) {
@@ -32,7 +32,7 @@ class typeController {
       await Type.update(req.body, {
         where: { id },
       });
-      res.status(200).json({
+      res.status(200).json({ 
         message: `Type ${id} has been updated `,
       });
     } catch (error) {
