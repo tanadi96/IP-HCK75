@@ -15,12 +15,72 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Plant.init({
-    name: DataTypes.STRING,
-    type: DataTypes.INTEGER,
-    watersNeeds: DataTypes.STRING,
-    lightNeeds: DataTypes.STRING,
-    temperatureRange: DataTypes.STRING,
-    soilType: DataTypes.STRING
+    name:  {
+      type:DataTypes.STRING,
+    allowNull:false,
+    validate:{
+      notNull:{
+        msg:"Name is required"
+      },
+      notEmpty:{
+        msg:"Name is required"
+      }
+    }},
+    type:  {
+      type:DataTypes.INTEGER,
+    allowNull:false,
+    validate:{
+      notNull:{
+        msg:"type is required"
+      },
+      notEmpty:{
+        msg:"type is required"
+      }
+    }},
+    watersNeeds:  {
+      type:DataTypes.STRING,
+    allowNull:false,
+    validate:{
+      notNull:{
+        msg:"watersNeeds is required"
+      },
+      notEmpty:{
+        msg:"watersNeeds is required"
+      }
+    }},
+    lightNeeds:  {
+      type:DataTypes.STRING,
+    allowNull:false,
+    validate:{
+      notNull:{
+        msg:"lightNeeds is required"
+      },
+      notEmpty:{
+        msg:"lightNeeds is required"
+      }
+    }},
+    temperatureRange: {
+      type:DataTypes.STRING,
+    allowNull:false,
+    validate:{
+      notNull:{
+        msg:"temperatureRange is required"
+      },
+      notEmpty:{
+        msg:"temperatureRange is required"
+      }
+    }},
+    soilType:  {
+      type:DataTypes.STRING,
+    allowNull:false,
+    validate:{
+      notNull:{
+        msg:"soilType is required"
+      },
+      notEmpty:{
+        msg:"soilType is required"
+      }
+    }}
   }, {
     sequelize,
     modelName: 'Plant',

@@ -2,9 +2,9 @@ const { Op } = require("sequelize");
 const { User, Type, Plant } = require("../models");
 const { comparePassword } = require("../Helpers/bycripts");
 const { errorHandler } = require("../Middlewares/errorhandler");
-const lodging = require("../Routers/plant");
 
 
+ 
 
 
 class plantController {

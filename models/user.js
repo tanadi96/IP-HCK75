@@ -1,7 +1,8 @@
 'use strict';
-const {
-  Model
-} = require('sequelize');
+
+const { Model } = require('sequelize');
+const { hashPassword } = require('../Helpers/bycripts');
+
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     /**
@@ -13,19 +14,29 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
     }
   }
+
   User.init({
-    email: DataTypes.STRING,
-    password: DataTypes.STRING
+    email: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        isEmail: true,
+      }
+    },
+    password: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
   }, {
     hooks: {
-      beforeCreate(instance, option) {
-        const salt = bcrypt.genSaltSync(5);
-        const hash = bcrypt.hashSync(instance.password, salt);
-        instance.password = hash;
+      beforeCreate(user, options) {
+        // Ensure the password is hashed before saving
+        user.password = hashPassword(user.password);
       },
     },
     sequelize,
     modelName: 'User',
   });
+
   return User;
 };
