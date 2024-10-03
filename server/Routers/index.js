@@ -12,7 +12,7 @@ const gemini=require('../Helpers/gemini')
 
 router.post("/register",Controller.register);
 router.post("/login",Controller.login);
-router.get("/api",ApiController.cuaca)
+router.get("/api",ApiController.weather)
 router.post("/gemini",async(req,res,next)=>{
     try {
         const {location}= req.body

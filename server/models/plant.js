@@ -80,6 +80,17 @@ module.exports = (sequelize, DataTypes) => {
       notEmpty:{
         msg:"soilType is required"
       }
+    }},
+    imageUrl:  {
+      type:DataTypes.TEXT,
+    allowNull:false,
+    validate:{
+      notNull:{
+        msg:"soilType is required"
+      },
+      notEmpty:{
+        msg:"soilType is required"
+      }
     }}
   }, {
     sequelize,

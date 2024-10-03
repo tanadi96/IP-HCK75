@@ -1,9 +1,9 @@
 const { Axios, default: axios } = require("axios");
 
 class ApiController{
-    static async cuaca(req,res,next){
+    static async weather(req,res,next){
         try {
-            let searchInput = req.body
+            
             let {q}= req.query
             const {data} = await axios({
                 url: `http://api.weatherapi.com/v1/current.json?key=${process.env.APICUACA}&q=${q}`,

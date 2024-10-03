@@ -50,7 +50,7 @@ class plantController {
           checkFilter.offset = limit * (offset - 1)
         }
       }
-console.log(checkFilter);
+
 
       let data = await Plant.findAll(checkFilter);
       res.status(200).json(data);
