@@ -6,14 +6,24 @@ const authentication = require("../Middlewares/authentication");
 const errorHandler = require("../Middlewares/errorhandler");
 
 const router = require("express").Router();
-
+const gemini=require('../Helpers/gemini')
 
 
 
 router.post("/register",Controller.register);
 router.post("/login",Controller.login);
 router.get("/api",ApiController.cuaca)
-
+router.post("/gemini",async(req,res,next)=>{
+    try {
+        const {location}= req.body
+        let ai =await gemini(location)
+        res.status(200).json(ai)
+    } catch (error) {
+        console.log(error);
+        next(error)
+        
+    }
+})
 router.use(authentication)
 router.use('/plants', require('./plant'))
 router.use('/types', require('./type'))
