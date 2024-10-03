@@ -91,7 +91,7 @@ export default function HomePage() {
   }, []);
 
   useEffect(() => {
-    fetchLodging();
+    fetchPlants();
   }, [search, page, sort, selectedType]);
   console.log();
 
