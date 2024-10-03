@@ -11,7 +11,8 @@ const gemini = async (location) => {
     const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
     
     let plants = JSON.stringify(await Plant.findAll({include:{
-        model:Type
+        model:Type,
+        attributes: ["name"]
     }}))
     
     // let {q}= req.query
@@ -19,12 +20,15 @@ const gemini = async (location) => {
         url: `http://api.weatherapi.com/v1/current.json?key=${process.env.APICUACA}&q=${location}`,
         method: "get"
     })
+    console.log(data);
     
 
 
-    const prompt = `give me reconmendation about plants in ${data}, just 3 plant 
+    const prompt = `give me reconmendation about plants in ${data}, just 3 plant with diferent type
     response must be a json format.
     base on ${plants}
+    like object with property name,imageUrl,type and description
+
     create without \`\`\`json and \`\`\``;
     console.log({prompt});
     try {
