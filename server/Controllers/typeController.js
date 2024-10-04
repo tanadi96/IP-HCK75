@@ -1,7 +1,7 @@
-const { where } = require("sequelize");
 
-const { User, Type, Lodging } = require("../models");
-const { comparePassword } = require("../Helpers/bycripts");
+
+const { Type } = require("../models");
+
 
 class typeController {
   static async getType(req, res, next) {

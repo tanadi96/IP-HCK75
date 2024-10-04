@@ -1,33 +1,50 @@
-  import axios from "axios";
-  import { useState } from "react";
-  import { useNavigate } from "react-router-dom";
 
+import axios from "axios";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-  export default function Login() {
-    const [email, setEmail] = useState();
-    const [password, setPassword] = useState();
-    const navigate = useNavigate();
+export default function Login() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");  // Add state to handle errors
+  const navigate = useNavigate();
 
-    const handleLogin = async (e) => {
-      e.preventDefault();
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    setError(""); // Reset error message before making the request
 
-      const data = await axios({
-        url: `https://localhost:3000/login`,
+    try {
+      const { data } = await axios({
+        url: `http://localhost:3000/login`,
         method: "post",
         data: {
           email,
           password,
         },
       });
-      console.log(data);
 
-      localStorage.setItem("access_token", data.access_token);
-      navigate("/");
-    };
-    return (
-      <div className="w-screen h-screen bg-gradient-to-r from-blue-100 via-green-100 to-blue-200 flex items-center justify-center">
+      console.log(data,"ini data login"); // Check what data is returned
+
+      localStorage.setItem("access_token", data.acces_token);
+      navigate("/"); // Navigate on successful login
+    } catch (error) {
+      // Enhanced error handling
+      if (axios.isAxiosError(error)) {
+        // Log the error message for debugging
+        console.error('Axios error message:', error.message);
+        setError('Login failed. Please check your credentials and try again.');
+      } else {
+        console.error('Unexpected error:', error);
+        setError('An unexpected error occurred. Please try again later.');
+      }
+    }
+  };
+  return (
+    <div className="w-screen h-screen bg-gradient-to-r from-blue-100 via-green-100 to-blue-200 flex items-center justify-center">
       <div className="bg-white rounded-lg shadow-xl p-10 w-3/4 max-w-4xl">
-        <h3 className="text-2xl mb-4 flex justify-center text-gray-700">Login</h3>
+        <h3 className="text-2xl mb-4 flex justify-center text-gray-700">
+          Login
+        </h3>
         <h1 className="mb-8 text-3xl font-bold flex justify-center text-gray-800">
           Welcome to TaniMap
         </h1>
@@ -84,5 +101,5 @@
         </div>
       </div>
     </div>
-    );
-  }
+  );
+}

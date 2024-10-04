@@ -4,11 +4,13 @@ const { signToken, verifyToken } = require("../Helpers/jwt");
 async function authentication(req, res, next) {
   try {
     const bearerToken = req.headers.authorization;
+    console.log("Bearer Token:", bearerToken);
     if (!bearerToken) {
       throw { name: "Invalid Token" };
     }
 
     const [bearer, token] = bearerToken.split(" ");
+
     if (!bearer || !token || bearer !== "Bearer")
       throw { name: "Invalid Token" };
     let payload = verifyToken(token);
@@ -19,7 +21,6 @@ async function authentication(req, res, next) {
     }
     req.user = {
       id: user.id,
-      role: user.role,
     };
     next();
   } catch (error) {

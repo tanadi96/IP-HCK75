@@ -2,6 +2,9 @@ import { createBrowserRouter, redirect } from "react-router-dom";
 import Login from "./component/login";
 import RootLayout from "./layout/Layout";
 import Register from "./component/register";
+import HomePage from "./homepage";
+import FormCreate from "./component/FormCreate";
+import FormEdit from "./component/FormEdit";
 
 export const router = createBrowserRouter([
   {
@@ -11,7 +14,9 @@ export const router = createBrowserRouter([
   {
     path:"/login",
     loader: () => {
-      const acces_token = localStorage.getItem("acces_token");
+      const acces_token = localStorage.getItem("access_token")
+      console.log(acces_token,"ini dirouter");
+      ;
       if (!acces_token) {
         return null;
       }
@@ -25,12 +30,16 @@ export const router = createBrowserRouter([
     children:[
       {
         path:"",
-        element:<h1>hallo</h1>
+        element:<HomePage/>
       },
       {
         path:"plants",
-        element:<h1>hallo</h1>
+        element:<FormCreate/>
       },
+      {
+        path:"plants/:id",
+        element:<FormEdit/>
+      }
       
     ]
   },

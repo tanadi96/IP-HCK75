@@ -74,7 +74,7 @@ describe("POST /login failed", () => {
 
 });
 
-test.only("POST/register",async () => {
+test("POST/register",async () => {
     const res = await request(app).post("/register").send({
         email: "aaaaa@biblegateway.com",
         password: "kkkkk",
@@ -85,3 +85,26 @@ test.only("POST/register",async () => {
       expect(res.body).toHaveProperty("id", expect.any(Number))
 })
 
+describe("Register failed", () => {
+
+  test("Email/Password Invalid", async () => {
+    const res = await request(app).post("/register").send({
+      email: "",
+      password: "kkkkk",
+    });
+    console.log(res.status, res.body);
+    expect(res.status).toBe(400)
+    expect(res.body).toHaveProperty("message","Validation isEmail on email failed")
+  });
+
+  test("Email/Password Invalid", async () => {
+    const res = await request(app).post("/register").send({
+      email: "fdumbar0@biblegatewa.com",
+      
+    });
+    console.log(res.status, res.body);
+    expect(res.status).toBe(400)
+    expect(res.body).toHaveProperty("message","User.password cannot be null")
+  });
+
+});
