@@ -31,7 +31,7 @@ beforeAll(async () => {
 
 test.only("Get/Plants succes", async () => {
   const res = await request(app)
-    .get("plants")
+    .get("/plants")
     .send({
       id: 1,
       name: "Pohon Ficus",
@@ -52,5 +52,5 @@ test.only("Get/Plants succes", async () => {
       },
     });
     console.log(res.status, res.body);
-    
+    expect 
 });

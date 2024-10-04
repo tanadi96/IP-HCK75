@@ -7,6 +7,7 @@ const {OAuth2Client} = require('google-auth-library');
 class Controller {
   static async register(req, res, next) {
     try {
+      
       let { email, password } = req.body;
       let user = await User.create({ email, password });
       console.log(user);

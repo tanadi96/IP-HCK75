@@ -24,7 +24,7 @@ const gemini = async (location) => {
     
 
 
-    const prompt = `give me reconmendation about plants in ${data}, just 3 plant with diferent type
+    const prompt = `give me reconmendation about plants in ${data}, just random 5 plant with diferent type
     response must be a json format.
     base on ${plants}
     like object with property name,imageUrl,type and description

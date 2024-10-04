@@ -13,6 +13,7 @@ module.exports = {
      * }], {});
     */
     const data = require("../data/plants.json").map((e) => {
+     delete e.id
       e.createdAt = e.updatedAt = new Date();
       return e;
     });

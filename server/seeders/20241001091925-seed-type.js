@@ -16,7 +16,7 @@ module.exports = {
      * }], {});
      */
     const data = require("../data/types.json").map((e) => {
-    
+      
       e.createdAt = e.updatedAt = new Date();
       return e;
     });
