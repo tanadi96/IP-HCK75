@@ -12,6 +12,7 @@ const gemini=require('../Helpers/gemini')
 
 router.post("/register",Controller.register);
 router.post("/login",Controller.login);
+router.post("/auth/google",Controller.googleLogin)
 router.get("/api",ApiController.weather)
 router.post("/gemini",async(req,res,next)=>{
     try {
