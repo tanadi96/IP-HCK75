@@ -5,6 +5,7 @@ import Register from "./component/register";
 import HomePage from "./homepage";
 import FormCreate from "./component/FormCreate";
 import FormEdit from "./component/FormEdit";
+import GetAPI from "./component/getAPI";
 
 export const router = createBrowserRouter([
   {
@@ -26,6 +27,15 @@ export const router = createBrowserRouter([
   },
   {
     path: "/",
+    loader: () => {
+      const acces_token = localStorage.getItem("access_token")
+      console.log(acces_token,"ini dirouter");
+      ;
+      if (acces_token) {
+        return null;
+      }
+      return redirect("/");
+    },
     element: <RootLayout/>,
     children:[
       {
@@ -39,7 +49,11 @@ export const router = createBrowserRouter([
       {
         path:"plants/:id",
         element:<FormEdit/>
-      }
+      },
+      {
+        path:"API",
+        element:<GetAPI/>
+      },
       
     ]
   },

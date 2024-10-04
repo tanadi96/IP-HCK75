@@ -18,7 +18,9 @@ export default function Register() {
           password,
         },
       });
-
+      Swal.fire({
+        icon:"success",
+        title:"Registrasion Succes"})
       navigate("/login");
     } catch (error) {
       console.log(error);

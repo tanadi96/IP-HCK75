@@ -1,5 +1,5 @@
 import Card from "../src/component/cards";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 import { useState } from "react";
 import { useEffect } from "react";
@@ -9,7 +9,7 @@ import axios from "axios";
 export default function HomePage() {
   const [plants, setPlants] = useState([]);
   const navigate = useNavigate();
-
+  const { id } = useParams();
   const fetchPlants = async () => {
     try {
       const { data } = await axios({
@@ -30,9 +30,15 @@ export default function HomePage() {
   };
 
   const handleOnDeletePlant = async (id) => {
+    console.log(id);
+
     try {
       await axios({
-        url: `https://localhost:3000/plants/${id}`,
+        url: `http://localhost:3000/plants/${id}`,
+        method:"delete",
+        headers: {
+          authorization: `Bearer ${localStorage.getItem("access_token")}`,
+        },
       });
       await fetchPlants();
     } catch (err) {

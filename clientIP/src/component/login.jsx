@@ -1,13 +1,47 @@
 
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2"
+
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");  // Add state to handle errors
   const navigate = useNavigate();
+
+  useEffect(() => {
+    google.accounts.id.initialize({
+      // fill this with your own client ID
+      client_id: import.meta.env.VITE_GOOGLE_CLIENT_ID,
+      // callback function to handle the response
+      callback: async (response) => {
+        console.log("Encoded JWT ID token: " + response.credential)
+        const { data } = await axios.post('http://localhost:3000/auth/google', {
+          googleToken: response.credential,
+        });
+
+        localStorage.setItem('access_token', data.access_token);
+        Swal.fire({
+          icon:"success",
+          title:"Login Succes"
+        })
+        // navigate to the home page or do magic stuff
+        navigate('/')
+      },
+    });
+    google.accounts.id.renderButton(
+      // HTML element ID where the button will be rendered
+      // this should be existed in the DOM
+      document.getElementById('buttonDiv'),
+      // customization attributes
+      { theme: 'outline', size: 'large' },
+    );
+    // to display the One Tap dialog, or comment to remove the dialog
+    google.accounts.id.prompt();
+  }, []);
+
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -92,10 +126,15 @@ export default function Login() {
               </div>
               <button
                 type="submit"
-                className="w-full sm:w-auto px-5 py-3 text-white bg-gradient-to-r from-blue-500 to-green-500 hover:from-green-500 hover:to-blue-500 rounded-lg shadow-md hover:shadow-lg transform hover:scale-105 transition duration-500 ease-in-out focus:ring-4 focus:outline-none focus:ring-green-300 font-medium text-sm text-center"
+                className="w-full sm:w-auto px-5 py-3 text-white bg-gradient-to-r from-blue-500 to-green-500 hover:from-green-500 hover:to-blue-500 rounded-lg shadow-md hover:shadow-lg transform hover:scale-105 transition duration-500 ease-in-out focus:ring-4 focus:outline-none focus:ring-green-300 font-medium text-sm text-center item-center"
               >
                 Submit
               </button>
+              <br/>
+              <div
+              className="w-full sm:w-auto px-5 py-3 text-white bg-gradient-to-r from-purple-500 to-pink-500 hover:from-pink-500 hover:to-purple-500 rounded-lg shadow-md hover:shadow-lg transform hover:scale-105 transition duration-500 ease-in-out focus:ring-4 focus:outline-none focus:ring-pink-300 font-medium text-sm text-center"
+              id="buttonDiv"></div>
+
             </form>
           </div>
         </div>

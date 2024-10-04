@@ -14,6 +14,8 @@ export default function FormCreate() {
   const [imageUrl, setUrl] = useState("");
   const navigate = useNavigate();
 
+  console.log(name,type);
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
     const token = localStorage.getItem("access_token");
@@ -31,7 +33,6 @@ export default function FormCreate() {
           soilType,
           imageUrl,
         },
-
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -39,6 +40,8 @@ export default function FormCreate() {
 
       navigate("/");
     } catch (error) {
+      console.log(error);
+      
       console.error("Error details:", error.response?.data || error);
     }
   };

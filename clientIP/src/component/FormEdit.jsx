@@ -1,7 +1,7 @@
 
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-
+import axios from "axios";
 
 export default function FormEdit() {
   let { id } = useParams();
@@ -24,14 +24,14 @@ export default function FormEdit() {
           authorization: `Bearer ${localStorage.getItem("access_token")}`,
         },
       });
-      console.log(data.data);
-      setName(data.data.name);
-      setType(data.data.type);
-      setWater(data.data.watersNeeds);
-      setLight(data.data.lightNeeds);
-      setSoil(data.data.soilType);
-      setTemperature(data.data.temperatureRange);
-      setUrl(data.data.imageUrl)
+      console.log(data);
+      setName(data.name);
+      setType(data.type);
+      setWater(data.watersNeeds);
+      setLight(data.lightNeeds);
+      setSoil(data.soilType);
+      setTemperature(data.temperatureRange);
+      setUrl(data.imageUrl)
     } catch (error) {
       console.error("Failed to fetch plant:", error);
     }

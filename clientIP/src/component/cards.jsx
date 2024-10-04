@@ -19,18 +19,18 @@ export default function Cards({ plant, handleOnDeletePlant }) {
             </Link>
             <div className="bg-white p-4 sm:p-6 h-[200px]">
               <div className="py-1 h-30">
-                <h3 className="mt-0.5 text-lg font-bold text-gray-900">
+                <h3 className="mt-0.5 text-lg font-bold text-gray-900 text-center">
                   {plant.name}
                 </h3>
-                <p className="text-sm text-gray-600 mt-1">{plant.type}</p>
-                <p className="mt-2 line-clamp-3 text-sm text-gray-500">
-                  {plant.location} {/* Change location to plant.location */}
+                <p className="text-sm text-gray-600 mt-1 text-center">{plant.Type.name}</p>
+                <p className="mt-2 line-clamp-3 text-sm text-gray-500 text-center">
+                  {plant.temperatureRange} {/* Change location to plant.location */}
                 </p>
               </div>
               <div className="flex justify-center mt-4">
                 <button
                   className="btn bg-red-600 text-white hover:bg-red-700 px-4 py-2 rounded-lg"
-                  onClick={() => handleOnDeletePlant(plant.id)} // Pass plant.id instead of id
+                  onClick={(e) => handleOnDeletePlant(plant.id)} // Pass plant.id instead of id
                 >
                   Delete
                 </button>
